@@ -11,6 +11,7 @@ const screens = {
 const biosText = document.getElementById("biosText");
 const biosAudio = document.getElementById("biosAudio");
 const startupAudio = document.getElementById("startupAudio");
+const clickAudio = document.getElementById("clickAudio");
 const soundToggle = document.getElementById("soundToggle");
 
 const desktopSurface = document.getElementById("desktopSurface");
@@ -58,6 +59,7 @@ let browserHistoryIndex = -1;
 let activeEditorFilePath = DEFAULT_FILE;
 let activeEditorTabPath = DEFAULT_FILE;
 let tesseractAnimationState = null;
+const CLICK_SOUND_VOLUME = 0.5;
 
 let zCounter = 20;
 let activeAppId = null;
@@ -617,6 +619,21 @@ function stopAudio(audioElement) {
   audioElement.currentTime = 0;
 }
 
+function playClickSound() {
+  if (!soundEnabled || !clickAudio) {
+    return;
+  }
+
+  // Single-channel playback: rapid clicks restart the sound instead of overlapping.
+  clickAudio.pause();
+  clickAudio.currentTime = 0;
+  clickAudio.volume = CLICK_SOUND_VOLUME;
+  clickAudio.muted = !soundEnabled;
+  clickAudio.play().catch(() => {
+    // Ignore autoplay edge cases.
+  });
+}
+
 function updateSoundToggle() {
   soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
   soundToggle.setAttribute("aria-label", soundEnabled ? "Mute sound" : "Unmute sound");
@@ -624,6 +641,7 @@ function updateSoundToggle() {
   soundToggle.classList.toggle("muted", !soundEnabled);
   biosAudio.muted = !soundEnabled;
   startupAudio.muted = !soundEnabled;
+  clickAudio.muted = !soundEnabled;
 }
 
 function initializeDesktop() {
@@ -2122,6 +2140,10 @@ soundToggle.addEventListener("click", () => {
   } else if (screens.boot.classList.contains("active")) {
     playAudio(biosAudio, false);
   }
+});
+
+document.addEventListener("click", () => {
+  playClickSound();
 });
 
 document.addEventListener("keydown", onStartupKey);
