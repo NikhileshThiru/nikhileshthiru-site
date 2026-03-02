@@ -9,10 +9,9 @@ My interactive personal portfolio built to feel like a Windows 95 desktop, with 
 - Retro startup flow: "Press any key" -> BIOS-style boot -> desktop
 - Draggable/resizable desktop windows (VS Code + Internet Explorer)
 - Multi-tab VS Code-like markdown viewer for portfolio content
-- Portfolio assistant panel ("Nikhilesh AI")
 - Desktop shortcuts for Resume, LinkedIn, GitHub, and X
 - External social links open in new browser tabs for reliability
-- Mobile responsive behavior for explorer/copilot panels
+- Mobile responsive behavior for desktop and explorer panels
 - SEO files included (`robots.txt`, `sitemap.xml`, social meta tags)
 
 ## Tech Stack
@@ -43,4 +42,3 @@ npm run preview
 - `styles.css` - Win95 UI styling and responsive behavior
 - `assets/` - icons, fonts, audio, resume PDF
 - `public/` - static SEO and routing files (`404.html`, `robots.txt`, `sitemap.xml`)
-

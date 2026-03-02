@@ -46,16 +46,9 @@ const editorContent = document.getElementById("editorContent");
 const statusLang = document.getElementById("statusLang");
 const statusPos = document.getElementById("statusPos");
 const filePanel = document.getElementById("filePanel");
-const copilotToggle = document.getElementById("copilotToggle");
-const copilotPanel = document.getElementById("copilotPanel");
-const copilotMessages = document.getElementById("copilotMessages");
-const copilotForm = document.getElementById("copilotForm");
-const copilotInput = document.getElementById("copilotInput");
-const copilotClear = document.getElementById("copilotClear");
 
 let bootTriggered = false;
 let desktopInitialized = false;
-let copilotInitialized = false;
 let browserInitialized = false;
 let soundEnabled = true;
 let clockInterval = null;
@@ -283,10 +276,9 @@ My interactive personal portfolio built to feel like a Windows 95 desktop, with 
 - Retro startup flow: "Press any key" -> BIOS-style boot -> desktop
 - Draggable/resizable desktop windows (VS Code + Internet Explorer)
 - Multi-tab VS Code-like markdown viewer for portfolio content
-- Portfolio assistant panel ("Nikhilesh AI")
 - Desktop shortcuts for Resume, LinkedIn, GitHub, and X
 - External social links open in new browser tabs for reliability
-- Mobile responsive behavior for explorer/copilot panels
+- Mobile responsive behavior for desktop and explorer panels
 - SEO files included (\`robots.txt\`, \`sitemap.xml\`, social meta tags)
 
 ## Tech Stack
@@ -395,57 +387,6 @@ Web Development and Client Solutions Team
 `,
   },
 };
-const copilotSuggestions = [
-  "Give me a 30-second intro.",
-  "What projects best show your engineering strength?",
-  "Summarize your Georgia Tech research outcomes.",
-  "What internship roles are you targeting?",
-  "How can I contact you quickly?",
-];
-
-const copilotKnowledge = [
-  {
-    keywords: ["intro", "introduce", "about", "who are you", "yourself"],
-    answer:
-      "I’m Nikhilesh Thiruvengadam, a Computer Science student at Georgia Tech (AI + Systems Architecture, 4.00 GPA). I build full-stack and AI systems with measurable outcomes in performance and reliability.",
-  },
-  {
-    keywords: ["hackgt", "refnet", "winner", "won", "project", "citation"],
-    answer:
-      "My flagship project is RefNet, an AI-powered research platform. It won 2nd Overall at HackGT 12 (2025) among 900+ participants and was designed for citation-network exploration across 250M+ papers. Devpost: https://devpost.com/software/refnet-c04g9n",
-  },
-  {
-    keywords: ["research", "rf", "anomaly", "usrp", "zero-shot", "continual"],
-    answer:
-      "At Georgia Tech, I research RF anomaly detection using multimodal ML. Reported outcomes include +32% detection accuracy, -25% false positives, and daily processing of 10M+ IQ samples.",
-  },
-  {
-    keywords: ["internship", "role", "hiring", "summer", "fit", "seeking"],
-    answer:
-      "I’m targeting Summer 2026 software engineering and AI/ML internships. I’m strongest in backend-heavy and intelligent product roles where I can build end-to-end and ship quickly.",
-  },
-  {
-    keywords: ["ibee", "experience", "intern", "work", "client", "dashboard"],
-    answer:
-      "At IBeeAnalytics, I built and maintained production web solutions across 15+ client projects, improved setup speed by 45%, and helped support reliability across 20+ active codebases.",
-  },
-  {
-    keywords: ["skills", "stack", "languages", "frameworks", "tools", "tech"],
-    answer:
-      "Core stack: Python, JavaScript, Java, SQL, React, Node.js, Flask, PyTorch, Docker, AWS EC2, Linux, REST APIs, and CI/CD pipelines.",
-  },
-  {
-    keywords: ["education", "gpa", "georgia tech", "degree", "school"],
-    answer:
-      "I’m pursuing a B.S. in Computer Science at Georgia Tech (Expected May 2027), with threads in Artificial Intelligence and Systems Architecture, and a 4.00/4.00 GPA.",
-  },
-  {
-    keywords: ["contact", "email", "linkedin", "github", "phone", "reach"],
-    answer:
-      "Best contact options: nikhilesh.thiru@gmail.com, linkedin.com/in/nikhilesh-thiruvengadam, github.com/NikhileshThiru, and 470-621-5274.",
-  },
-];
-
 function setActiveScreen(screenName) {
   for (const [name, element] of Object.entries(screens)) {
     const isActive = name === screenName;
@@ -695,7 +636,6 @@ function initializeDesktop() {
     bindBrowserApp();
     bindStartMenu();
     bindEditorHelpers();
-    bindCopilot();
     syncTaskbarState();
     desktopInitialized = true;
   }
@@ -1344,9 +1284,6 @@ function bindDesktopInteractions() {
 
   treeToggle.addEventListener("click", () => {
     filePanel.classList.toggle("open");
-    if (window.matchMedia("(max-width: 760px)").matches) {
-      copilotPanel.classList.remove("open");
-    }
   });
 }
 
@@ -1715,192 +1652,6 @@ function bindEditorHelpers() {
   });
 }
 
-function bindCopilot() {
-  if (copilotInitialized) {
-    return;
-  }
-
-  copilotToggle.classList.add("active");
-
-  appendCopilotMessage(
-    "assistant",
-    "Hi, I’m Nikhilesh AI. Ask me anything about my projects, experience, skills, and internship goals."
-  );
-
-  copilotForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const question = copilotInput.value.trim();
-    if (!question) {
-      return;
-    }
-
-    appendCopilotMessage("user", question);
-    const response = generateCopilotResponse(question);
-    window.setTimeout(() => {
-      appendCopilotMessage("assistant", response);
-    }, randomInt(220, 460));
-
-    copilotInput.value = "";
-    copilotInput.focus();
-  });
-
-  copilotMessages.addEventListener("wheel", (event) => {
-    event.stopPropagation();
-  });
-
-  copilotClear.addEventListener("click", () => {
-    copilotMessages.innerHTML = "";
-    appendCopilotMessage(
-      "assistant",
-      "Chat cleared. Ask me anything about my background, projects, and role fit."
-    );
-  });
-
-  copilotToggle.addEventListener("click", () => {
-    if (window.matchMedia("(max-width: 760px)").matches) {
-      const nextState = !copilotPanel.classList.contains("open");
-      copilotPanel.classList.toggle("open", nextState);
-      filePanel.classList.remove("open");
-      copilotToggle.classList.toggle("active", nextState);
-      return;
-    }
-
-    const hidePanel = !vscodeWindow.classList.contains("copilot-hidden");
-    vscodeWindow.classList.toggle("copilot-hidden", hidePanel);
-    copilotToggle.classList.toggle("active", !hidePanel);
-  });
-
-  copilotInitialized = true;
-}
-
-function appendCopilotMessage(role, text) {
-  const message = document.createElement("div");
-  message.className = `copilot-msg role ${role}`;
-  message.textContent = text;
-  copilotMessages.appendChild(message);
-  copilotMessages.scrollTop = copilotMessages.scrollHeight;
-}
-
-function generateCopilotResponse(question) {
-  const q = question.toLowerCase();
-  const words = tokenizeWords(q);
-  const hasWord = (...tokens) => tokens.some((token) => words.includes(token));
-  const hasPhrase = (...phrases) => phrases.some((phrase) => q.includes(phrase));
-
-  if (hasWord("hi", "hello", "hey", "yo") || hasPhrase("good morning", "good afternoon", "good evening")) {
-    return "Hi, I’m Nikhilesh AI. Ask me anything about my projects, research, work experience, skills, or internship fit.";
-  }
-
-  if (hasWord("name") || hasPhrase("who are you")) {
-    return "I’m Nikhilesh AI, a portfolio assistant representing Nikhilesh Thiruvengadam.";
-  }
-
-  if (hasWord("thanks", "thx") || hasPhrase("thank you")) {
-    return "Anytime. If you want, ask me for a 30-second pitch, strongest projects, or role fit summary.";
-  }
-
-  if (hasWord("resume", "cv")) {
-    return "Open Resume.pdf from the desktop to view my full PDF resume. I can also summarize it in 30 seconds.";
-  }
-
-  if (hasPhrase("what can i ask") || hasWord("help", "examples")) {
-    return `Try one of these:\n- ${copilotSuggestions.join("\n- ")}`;
-  }
-
-  const bestMatch = copilotKnowledge
-    .map((entry) => ({
-      entry,
-      score: scoreQueryAgainstKeywords(q, entry.keywords),
-    }))
-    .sort((a, b) => b.score - a.score)[0];
-
-  if (bestMatch && bestMatch.score > 0) {
-    return bestMatch.entry.answer;
-  }
-
-  const contextual = inferAnswerFromPortfolioFiles(q);
-  if (contextual) {
-    return contextual;
-  }
-
-  return "I can answer that if you rephrase slightly. Try asking about projects, research impact, work experience, internship goals, or contact info.";
-}
-
-function scoreQueryAgainstKeywords(query, keywords) {
-  const words = tokenizeWords(query);
-  return keywords.reduce((score, keyword) => {
-    const normalized = keyword.toLowerCase().trim();
-    const matched = normalized.includes(" ") ? query.includes(normalized) : words.includes(normalized);
-    if (!matched) {
-      return score;
-    }
-    const weight = Math.max(1, normalized.split(/\s+/).length);
-    return score + weight;
-  }, 0);
-}
-
-function tokenizeWords(value) {
-  return value
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(/\s+/)
-    .filter(Boolean);
-}
-
-function inferAnswerFromPortfolioFiles(query) {
-  const tokens = query
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(/\s+/)
-    .filter((token) => token.length >= 4);
-
-  if (!tokens.length) {
-    return "";
-  }
-
-  let bestPath = "";
-  let bestScore = 0;
-
-  Object.entries(files).forEach(([path, file]) => {
-    if (!file || typeof file.content !== "string" || file.type !== "markdown") {
-      return;
-    }
-
-    const content = file.content.toLowerCase();
-    let score = 0;
-    tokens.forEach((token) => {
-      if (content.includes(token)) {
-        score += 1;
-      }
-    });
-
-    if (score > bestScore) {
-      bestScore = score;
-      bestPath = path;
-    }
-  });
-
-  if (bestScore < 2 || !bestPath) {
-    return "";
-  }
-
-  const rawLines = files[bestPath].content.split("\n").map((line) => line.trim());
-  const matchedLines = rawLines
-    .filter((line) => {
-      if (!line || line.startsWith("#")) {
-        return false;
-      }
-      const normalized = line.toLowerCase();
-      return tokens.some((token) => normalized.includes(token));
-    })
-    .slice(0, 3)
-    .map((line) => line.replace(/^-\s*/, "").replace(/\*\*/g, ""));
-
-  if (!matchedLines.length) {
-    return "";
-  }
-
-  return `From my portfolio content:\n- ${matchedLines.join("\n- ")}`;
-}
-
 function renderTree() {
   fileTree.innerHTML = "";
   fileButtonsByPath.clear();
@@ -2105,8 +1856,6 @@ function openFile(path, clickedButton) {
 
   if (window.matchMedia("(max-width: 760px)").matches) {
     filePanel.classList.remove("open");
-    copilotPanel.classList.remove("open");
-    copilotToggle.classList.remove("active");
   }
 }
 
