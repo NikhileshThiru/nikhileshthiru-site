@@ -222,6 +222,12 @@ const treeData = {
           open: false,
           children: [{ name: "README.md", type: "file" }],
         },
+        {
+          name: "nikhileshthiru-site",
+          type: "folder",
+          open: false,
+          children: [{ name: "README.md", type: "file" }],
+        },
       ],
     },
     {
@@ -247,6 +253,24 @@ const treeData = {
 
 const files = {
   "nikhileshthiru/README.md": {
+    type: "markdown",
+    content: `# Nikhilesh Thiruvengadam
+Computer Science @ Georgia Tech (AI + Systems Architecture) | GPA: 4.00/4.00
+
+Actively seeking internship opportunities in software engineering, AI/ML, and data science, with a preference for backend and systems-focused work.
+
+## Highlights
+- HackGT 12 (2025): 2nd Overall Winner for RefNet, an AI research platform across 250M+ papers.
+- Georgia Tech Undergraduate Researcher focused on machine learning for RF anomaly detection.
+- Software Engineering Intern at IBeeAnalytics delivering production web solutions across 15+ client projects.
+
+## Start Here
+- Open projects/ to explore selected builds.
+- Open work-experience/ for role impact summaries.
+- Open contact/ to connect.
+`,
+  },
+  "nikhileshthiru/projects/nikhileshthiru-site/README.md": {
     type: "markdown",
     content: `# Nikhilesh Thiruvengadam
 Computer Science @ Georgia Tech (AI + Systems Architecture) | GPA: 4.00/4.00
