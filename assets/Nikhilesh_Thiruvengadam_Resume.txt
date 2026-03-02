@@ -1,0 +1,41 @@
+Nikhilesh Thiruvengadam
+470-621-5274 | nikhilesh.thiru@gmail.com | nthiruve3@gatech.edu
+linkedin.com/in/nikhilesh-thiruvengadam | github.com/NikhileshThiru
+
+EDUCATION
+Georgia Institute of Technology, Atlanta, GA
+B.S. in Computer Science (Expected May 2027)
+Threads: Artificial Intelligence and Systems Architecture
+GPA: 4.00/4.00
+
+INTERNSHIP FOCUS
+Seeking Summer 2026 Software Engineering and AI/ML internships.
+
+TECHNICAL SKILLS
+Languages: Python, Java, JavaScript, SQL, HTML/CSS
+Frameworks/Libraries: React, Node.js, Flask, PyTorch, NumPy, Pandas, NetworkX, D3.js
+Tools/Platforms: Docker, Firebase, Git, Linux, AWS (EC2), Vercel, REST APIs, CI/CD
+
+PROJECT HIGHLIGHT
+RefNet (HackGT 12 - 2nd Overall, 2025)
+- Built an AI-powered research platform spanning 250M+ papers.
+- Combined React, Flask, Node.js, D3.js, and NetworkX for graph intelligence.
+- Improved responsiveness to sub-1s rendering for 1K+ nodes via render optimization.
+
+EXPERIENCE
+Georgia Tech - Undergraduate Researcher (Aug 2025 - Present)
+- Improved anomaly detection accuracy by 32% with zero-shot + continual learning.
+- Processed 10M+ IQ samples daily using multimodal ML pipelines.
+- Reduced false positives by 25% with fusion model techniques.
+- Increased experiment throughput by 40% through reusable preprocessing workflows.
+
+IBeeAnalytics - Software Engineering Intern (Aug 2023 - May 2025)
+- Delivered 15+ production client dashboards/websites with modern frontend stacks.
+- Automated CI/CD deployment pipelines for faster, reliable releases.
+- Reduced template setup time by 45% and improved performance by 35%.
+
+LEADERSHIP & AWARDS
+- HackGT 12 (2025): 2nd Overall Winner
+- VEX Robotics Team Leader & Programmer: Worlds 3x, States 5x
+- Trailblazers Robotics Lead Coach: Mentored 25+ students, 6 state qualifiers
+- VT Seva Director, PVSA Gold Award: 250+ hours of outreach and fundraising

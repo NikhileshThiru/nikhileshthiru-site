@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nikhilesh Thiruvengadam's retro Windows 95 portfolio featuring projects, experience, and contact links for software engineering, AI/ML, and data science internships.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#008080">
+  <link rel="canonical" href="https://nikhileshthiru.pages.dev/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nikhilesh Thiru | Windows 95 Portfolio">
+  <meta property="og:description" content="Retro Windows 95 portfolio with projects, experience, and contact links.">
+  <meta property="og:url" content="https://nikhileshthiru.pages.dev/">
+  <meta property="og:image" content="https://nikhileshthiru.pages.dev/assets/ie.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nikhilesh Thiru | Windows 95 Portfolio">
+  <meta name="twitter:description" content="Retro Windows 95 portfolio with projects, experience, and contact links.">
+  <meta name="twitter:image" content="https://nikhileshthiru.pages.dev/assets/ie.png">
+
+  <script>
+    window.plausible =
+      window.plausible ||
+      function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+  </script>
+  <script defer data-domain="nikhileshthiru.pages.dev" src="https://plausible.io/js/script.tagged-events.outbound-links.pageview-props.js"></script>
+
+  <title>Nikhilesh Thiru | Windows 95 Portfolio</title>
+  <link rel="icon" type="image/png" href="assets/start-95.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <section id="preboot" class="screen active" aria-label="Start screen">
+      <p class="press-any-key">Press any key to start...</p>
+    </section>
+
+    <section id="boot" class="screen" aria-label="BIOS boot screen">
+      <div id="biosText" class="bios-text"></div>
+    </section>
+
+    <section id="desktop" class="screen" aria-label="Windows 95 desktop">
+      <div id="desktopSurface" class="desktop-surface">
+        <button id="vscodeDesktopIcon" class="desktop-icon" type="button" aria-label="Open Visual Studio Code">
+          <span class="desktop-icon-art" aria-hidden="true">
+            <svg class="vscode-logo" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M47 6.2L20.5 23.7L9.3 14.2L3 19.4L12.4 31.9L3 44.6L9.3 49.8L20.5 40.2L47 57.8L61 50.7V13.3L47 6.2Z" fill="#007ACC"/>
+              <path d="M47 6.2L20.5 23.7L20.5 40.2L47 57.8V6.2Z" fill="#1F9CF0"/>
+              <path d="M20.5 23.7L40.8 31.9L20.5 40.2L11.2 31.9L20.5 23.7Z" fill="#0A4A73"/>
+            </svg>
+          </span>
+          <span class="desktop-icon-label">Visual Studio Code</span>
+        </button>
+
+        <button id="ieDesktopIcon" class="desktop-icon" type="button" aria-label="Open Internet Explorer">
+          <span class="desktop-icon-art" aria-hidden="true">
+            <img class="ie-logo" src="assets/ie.png" alt="">
+          </span>
+          <span class="desktop-icon-label">Internet Explorer</span>
+        </button>
+
+        <button id="resumeDesktopIcon" class="desktop-icon" type="button" aria-label="Open resume PDF">
+          <span class="desktop-icon-art" aria-hidden="true">
+            <svg class="pdf-logo" viewBox="0 0 64 64" aria-hidden="true">
+              <path fill="#f7f8fb" d="M14 6h24l12 12v40H14z"/>
+              <path fill="#d8dbe2" d="M38 6v12h12z"/>
+              <rect x="18" y="30" width="28" height="20" rx="2" fill="#e53935"/>
+              <text x="32" y="44" text-anchor="middle" fill="#fff" font-size="12" font-family="Arial, sans-serif" font-weight="700">PDF</text>
+              <rect x="19" y="14" width="19" height="3" fill="#b6bccb"/>
+              <rect x="19" y="20" width="25" height="3" fill="#b6bccb"/>
+            </svg>
+          </span>
+          <span class="desktop-icon-label">Resume.pdf</span>
+        </button>
+
+        <button id="linkedinDesktopIcon" class="desktop-icon" type="button" aria-label="Open LinkedIn">
+          <span class="desktop-icon-art social-linkedin" aria-hidden="true">
+            <svg class="social-logo" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.9-2.2 3.9-2.2 4.2 0 5 2.8 5 6.4V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21H9z"/>
+            </svg>
+          </span>
+          <span class="desktop-icon-label">LinkedIn</span>
+        </button>
+
+        <button id="githubDesktopIcon" class="desktop-icon" type="button" aria-label="Open GitHub">
+          <span class="desktop-icon-art social-github" aria-hidden="true">
+            <svg class="social-logo" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.3-3.5-1.3-.4-1-.9-1.2-.9-1.2-.8-.5.1-.5.1-.5.9.1 1.4.9 1.4.9.8 1.4 2.2 1 2.7.8.1-.6.3-1 .6-1.3-2.3-.3-4.7-1.1-4.7-5A4 4 0 0 1 6.2 8c-.1-.3-.4-1.3.1-2.8 0 0 .8-.3 2.8 1A9.7 9.7 0 0 1 12 6c.9 0 1.8.1 2.7.3 2-1.3 2.8-1 2.8-1 .6 1.5.3 2.5.2 2.8a4 4 0 0 1 1.1 2.8c0 3.9-2.4 4.7-4.7 5 .3.3.6.8.6 1.6V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/>
+            </svg>
+          </span>
+          <span class="desktop-icon-label">GitHub</span>
+        </button>
+
+        <button id="xDesktopIcon" class="desktop-icon" type="button" aria-label="Open X">
+          <span class="desktop-icon-art social-x" aria-hidden="true">
+            <svg class="social-logo" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M3 3h5.4l4 5.6L17.2 3H21l-6.7 7.5L22 21h-5.4l-4.5-6.3L6.6 21H3l7.1-8z"/>
+            </svg>
+          </span>
+          <span class="desktop-icon-label">X</span>
+        </button>
+
+        <div class="desktop-watermark" aria-hidden="true">
+          <div class="desktop-watermark-icon tesseract-loop">
+            <canvas id="tesseractCanvas" class="tesseract-canvas" width="140" height="140" aria-hidden="true"></canvas>
+          </div>
+          <div class="desktop-watermark-name">Nikhilesh</div>
+        </div>
+
+      </div>
+
+      <section id="vscodeWindow" class="window app-window closed" data-app="vscode" data-title="Visual Studio Code">
+        <header class="window-titlebar" data-drag-handle>
+          <div class="title-left">Visual Studio Code</div>
+          <div class="window-controls">
+            <button class="control-btn control-min" data-control="minimize" type="button" aria-label="Minimize">–</button>
+            <button class="control-btn control-max" data-control="maximize" type="button" aria-label="Fullscreen">▢</button>
+            <button class="control-btn control-close" data-control="close" type="button" aria-label="Close">✕</button>
+          </div>
+        </header>
+
+        <div class="window-content">
+          <div class="vscode-shell">
+            <aside id="filePanel" class="vscode-explorer" aria-label="File tree">
+              <div class="explorer-title">EXPLORER</div>
+              <ul id="fileTree" class="tree-root"></ul>
+            </aside>
+
+            <main class="vscode-main">
+              <div class="vscode-tabs-row">
+                <div id="editorTabs" class="vscode-tabs"></div>
+                <div class="vscode-tab-actions">
+                  <button id="treeToggle" class="tree-toggle" type="button">Explorer</button>
+                  <button id="copilotToggle" class="copilot-toggle" type="button">Nikhilesh AI</button>
+                </div>
+              </div>
+              <section id="editorContent" class="vscode-editor" aria-label="Code editor"></section>
+              <footer class="vscode-status">
+                <div class="status-left">
+                  <span class="status-chip">Branch: main</span>
+                  <span class="status-chip">Inspired by VSCode</span>
+                </div>
+                <div class="status-right">
+                  <span id="statusLang">Markdown</span>
+                  <span id="statusPos">Ln 1, Col 1</span>
+                </div>
+              </footer>
+            </main>
+
+            <aside id="copilotPanel" class="copilot-panel" aria-label="Nikhilesh AI">
+              <div class="copilot-header">
+                <span>Nikhilesh AI</span>
+                <button id="copilotClear" type="button">Clear</button>
+              </div>
+              <div id="copilotMessages" class="copilot-messages"></div>
+              <form id="copilotForm" class="copilot-form">
+                <input id="copilotInput" type="text" placeholder="Ask about Nikhilesh..." autocomplete="off">
+                <button type="submit">Send</button>
+              </form>
+            </aside>
+          </div>
+        </div>
+
+        <span class="resize-handle n" data-resize="n"></span>
+        <span class="resize-handle s" data-resize="s"></span>
+        <span class="resize-handle e" data-resize="e"></span>
+        <span class="resize-handle w" data-resize="w"></span>
+        <span class="resize-handle ne" data-resize="ne"></span>
+        <span class="resize-handle nw" data-resize="nw"></span>
+        <span class="resize-handle se" data-resize="se"></span>
+        <span class="resize-handle sw" data-resize="sw"></span>
+      </section>
+
+      <section id="browserWindow" class="window app-window closed" data-app="browser" data-title="Internet Explorer">
+        <header class="window-titlebar" data-drag-handle>
+          <div class="title-left browser-title-text">Internet Explorer</div>
+          <div class="window-controls">
+            <button class="control-btn control-min" data-control="minimize" type="button" aria-label="Minimize">–</button>
+            <button class="control-btn control-max" data-control="maximize" type="button" aria-label="Fullscreen">▢</button>
+            <button class="control-btn control-close" data-control="close" type="button" aria-label="Close">✕</button>
+          </div>
+        </header>
+
+        <div class="window-content browser-window-content">
+          <div class="browser-toolbar">
+            <button id="browserBack" class="browser-btn" type="button" aria-label="Back">Back</button>
+            <button id="browserForward" class="browser-btn" type="button" aria-label="Forward">Forward</button>
+            <button id="browserRefresh" class="browser-btn" type="button" aria-label="Refresh">Refresh</button>
+            <button id="browserHome" class="browser-btn" type="button" aria-label="Browser home">Home</button>
+            <form id="browserForm" class="browser-form">
+              <input id="browserInput" type="text" placeholder="Address" autocomplete="off" spellcheck="false">
+              <button type="submit">Go</button>
+            </form>
+          </div>
+          <iframe
+            id="browserFrame"
+            class="browser-frame"
+            title="Browser view"
+            loading="eager"
+          ></iframe>
+          <div class="browser-note">
+            <span>If page does not load, please click</span>
+            <a id="browserDirectLink" href="https://www.google.com/search?igu=1" target="_blank" rel="noopener noreferrer">here</a>
+            <span>to view directly.</span>
+          </div>
+        </div>
+
+        <span class="resize-handle n" data-resize="n"></span>
+        <span class="resize-handle s" data-resize="s"></span>
+        <span class="resize-handle e" data-resize="e"></span>
+        <span class="resize-handle w" data-resize="w"></span>
+        <span class="resize-handle ne" data-resize="ne"></span>
+        <span class="resize-handle nw" data-resize="nw"></span>
+        <span class="resize-handle se" data-resize="se"></span>
+        <span class="resize-handle sw" data-resize="sw"></span>
+      </section>
+
+      <nav id="startMenu" class="start-menu hidden" aria-label="Start menu">
+        <div class="start-menu-side">Windows 95</div>
+        <div class="start-menu-content"></div>
+      </nav>
+
+      <footer id="taskbar" class="taskbar">
+        <button id="startButton" class="start-btn" type="button">
+          <span class="win95-logo" aria-hidden="true"><img src="assets/start-95.png" alt=""></span>
+          <span>Start</span>
+        </button>
+        <div id="taskbarApps" class="taskbar-apps"></div>
+        <button id="soundToggle" class="tray-btn" type="button" aria-label="Mute sound">🔊</button>
+        <div id="clock" class="clock"></div>
+      </footer>
+    </section>
+  </div>
+
+  <audio id="biosAudio" src="assets/audio/bios-boot.wav" preload="auto"></audio>
+  <audio id="startupAudio" src="assets/audio/windows-startup.wav" preload="auto"></audio>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
