@@ -1,6 +1,6 @@
 # Nikhilesh Thiru - Retro Windows 95 Portfolio
 
-An interactive personal portfolio built to feel like a Windows 95 desktop, with boot sequence, draggable app windows, an in-browser "Internet Explorer", and a VS Code-style file explorer/editor.
+My interactive personal portfolio built to feel like a Windows 95 desktop, with boot sequence, draggable app windows, an in-browser "Internet Explorer", and a VS Code-style file explorer/editor.
 
 ## Live URL
 - https://nikhileshthiru.pages.dev
