@@ -16,3 +16,6 @@ yarn-error.log*
 # env
 .env
 .env.*
+
+# sync script scratch output
+scripts/sync-cache/

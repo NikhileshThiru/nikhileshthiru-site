@@ -1,6 +1,13 @@
 "use strict";
 
-const DEFAULT_FILE = "nikhileshthiru/README.md";
+import {
+  DEFAULT_FILE,
+  treeData,
+  files,
+  markdownRemoteBases,
+  profileLinks,
+  resumePdfUrl,
+} from "./content.js";
 
 const screens = {
   preboot: document.getElementById("preboot"),
@@ -49,6 +56,7 @@ const statusPos = document.getElementById("statusPos");
 const filePanel = document.getElementById("filePanel");
 
 let bootTriggered = false;
+let bootSkipRequested = false;
 let desktopInitialized = false;
 let browserInitialized = false;
 let soundEnabled = true;
@@ -77,13 +85,11 @@ const STARTUP_IGNORED_KEYS = new Set([
 ]);
 
 const epaLogoSrc = new URL("./assets/epa-logo.jpg", import.meta.url).href;
-const resumePdfUrl = new URL("./assets/Nikhilesh_Thiruvengadam.pdf", import.meta.url).href;
-const xProfileUrl = "https://x.com/NikhileshThiru";
 const browserHomeUrl = "https://www.google.com/search?igu=1";
 const browserSearchUrl = "https://www.google.com/search?igu=1&q=";
 const browserShortcutUrls = new Map([
-  ["x", xProfileUrl],
-  ["twitter", xProfileUrl],
+  ["x", profileLinks.x],
+  ["twitter", profileLinks.x],
   ["github", "https://github.com"],
   ["linkedin", "https://linkedin.com"],
   ["linkeding", "https://linkedin.com"],
@@ -94,9 +100,6 @@ const browserNewTabHosts = [
   "x.com",
   "twitter.com",
 ];
-const markdownRemoteBases = new Map([
-  ["nikhileshthiru/projects/refnet/README.md", "https://raw.githubusercontent.com/NikhileshThiru/RefNet/main/"],
-]);
 
 function trackPlausibleEvent(eventName, props = {}) {
   if (typeof window === "undefined" || typeof window.plausible !== "function") {
@@ -200,195 +203,6 @@ const biosPages = [
   },
 ];
 
-const treeData = {
-  name: "nikhileshthiru",
-  type: "folder",
-  open: true,
-  children: [
-    { name: "README.md", type: "file" },
-    {
-      name: "projects",
-      type: "folder",
-      open: false,
-      children: [
-        {
-          name: "refnet",
-          type: "folder",
-          open: false,
-          children: [{ name: "README.md", type: "file" }],
-        },
-        {
-          name: "nikhileshthiru-site",
-          type: "folder",
-          open: false,
-          children: [{ name: "README.md", type: "file" }],
-        },
-      ],
-    },
-    {
-      name: "work-experience",
-      type: "folder",
-      open: false,
-      children: [{ name: "README.md", type: "file" }],
-    },
-    {
-      name: "skills",
-      type: "folder",
-      open: false,
-      children: [{ name: "README.md", type: "file" }],
-    },
-    {
-      name: "contact",
-      type: "folder",
-      open: false,
-      children: [{ name: "README.md", type: "file" }],
-    },
-  ],
-};
-
-const files = {
-  "nikhileshthiru/README.md": {
-    type: "markdown",
-    content: `# Nikhilesh Thiruvengadam
-Computer Science @ Georgia Tech (AI + Systems Architecture) | GPA: 4.00/4.00
-
-Actively seeking internship opportunities in software engineering, AI/ML, and data science, with a preference for backend and systems-focused work.
-
-## Highlights
-- HackGT 12 (2025): 2nd Overall Winner for RefNet, an AI research platform across 250M+ papers.
-- Georgia Tech Undergraduate Researcher focused on machine learning for RF anomaly detection.
-- Software Engineering Intern at IBeeAnalytics delivering production web solutions across 15+ client projects.
-
-## Start Here
-- Open projects/ to explore selected builds.
-- Open work-experience/ for role impact summaries.
-- Open contact/ to connect.
-`,
-  },
-  "nikhileshthiru/projects/nikhileshthiru-site/README.md": {
-    type: "markdown",
-    content: `# Nikhilesh Thiru - Retro Windows 95 Portfolio
-
-My interactive personal portfolio built to feel like a Windows 95 desktop, with boot sequence, draggable app windows, an in-browser "Internet Explorer", and a VS Code-style file explorer/editor.
-
-## Live URL
-- https://nikhileshthiru.pages.dev
-
-## Features
-- Retro startup flow: "Press any key" -> BIOS-style boot -> desktop
-- Draggable/resizable desktop windows (VS Code + Internet Explorer)
-- Multi-tab VS Code-like markdown viewer for portfolio content
-- Desktop shortcuts for Resume, LinkedIn, GitHub, and X
-- External social links open in new browser tabs for reliability
-- Mobile responsive behavior for desktop and explorer panels
-- SEO files included (\`robots.txt\`, \`sitemap.xml\`, social meta tags)
-
-## Tech Stack
-- Vite
-- Vanilla JavaScript
-- HTML/CSS
-
-## Local Development
-\`\`\`bash
-npm install
-npm run dev
-\`\`\`
-
-## Production Build
-\`\`\`bash
-npm run build
-npm run preview
-\`\`\`
-
-## Deploy (Cloudflare Pages)
-- Build command: \`npm run build\`
-- Output directory: \`dist\`
-- Production URL target: \`nikhileshthiru.pages.dev\`
-
-## Project Structure
-- \`index.html\` - app shell and desktop/window markup
-- \`script.js\` - app logic (boot flow, windows, browser, editor, animations)
-- \`styles.css\` - Win95 UI styling and responsive behavior
-- \`assets/\` - icons, fonts, audio, resume PDF
-- \`public/\` - static SEO and routing files (\`404.html\`, \`robots.txt\`, \`sitemap.xml\`)
-`,
-  },
-  "nikhileshthiru/projects/refnet/README.md": {
-    type: "markdown",
-    content: "# RefNet - Research Paper Search & Citation Network Visualization\n\n🏆 **2nd Place Overall Winner at HackGT 12** 🏆\n\n**Devpost:** https://devpost.com/software/refnet-c04g9n\n\n**Team Members:**\n- Nikhilesh\n- Dhruva\n- Shreyas\n- Krishna\n\n![RefNet Screenshot](docs/screenshot.png)\n\nRefNet is a comprehensive tool for searching research papers and visualizing their citation networks. It combines a powerful search interface with an interactive graph visualization and AI-powered analysis to help researchers explore academic literature and understand citation relationships.\n\n## 🤖 AI-Powered Research Analysis\n\n- **Custom Mastra Backend**: Express.js + OpenAI GPT-4o for intelligent research analysis\n- **Smart Context**: AI understands your selected papers and graph relationships\n- **Research Insights**: Compare papers, identify patterns, and discover research gaps\n- **Real-time Analysis**: Ask questions about your selected papers and get instant insights\n- **Review Paper Generation**: AI-powered literature review creation with PDF export\n\n## Features\n\n### 🔍 **Advanced Search**\n- Search research papers by title, authors, topics, and keywords\n- Filter results by publication date, citation count, and relevance\n- Sort by most cited, relevance score, or publication date\n- Paginated results with customizable page sizes\n- **Multiselect functionality** - Select multiple papers to build combined citation networks\n\n### 📊 **Interactive Graph Visualization**\n- Build citation networks from any research paper or multiple papers\n- Interactive D3.js-powered graph with zoom, pan, and drag functionality\n- Node selection and highlighting\n- Timeline-based color coding\n- Light grey/white lines for clean, academic appearance\n- Export selected papers and graph data\n- **Graph Rebuild Fallback**: Automatic restoration of previous graph on rebuild failure\n\n### 📄 **AI-Powered Review Paper Generation**\n- Generate comprehensive literature reviews from selected papers\n- AI-generated sections: Abstract, Introduction, Fundamentals, Types & Categories, State-of-the-Art\n- Intelligent title generation based on paper analysis\n- PDF export with academic formatting\n- Text file fallback for compatibility\n\n### 🚀 **Modern Web Interface**\n- Responsive design that works on desktop and mobile\n- Fast, modern React frontend\n- Real-time API integration\n- Intuitive user experience\n- **PWA Support**: Manifest.json for progressive web app capabilities\n\n## Quick Start\n\n### Prerequisites\n- Python 3.8+\n- Node.js 18+\n- npm or yarn\n- OpenAI API key\n\n### Setup\n\n1. **Configure environment variables:**\n   ```bash\n   cp .env.example .env\n   # Edit .env and add your OpenAI API key\n   ```\n   Or export directly:\n   ```bash\n   export OPENAI_API_KEY='your-openai-api-key-here'\n   ```\n\n2. **Install backend dependencies:**\n   ```bash\n   pip install -r requirements.txt\n   cd mastra-backend && npm install && cd ..\n   cd refnet/frontend && npm install && cd ../..\n   ```\n\n3. **Start all services:**\n   ```bash\n   ./start_cedar_mastra.sh\n   ```\n\n   This will start:\n   - Flask search API on `http://localhost:8000`\n   - Mastra AI backend on `http://localhost:4111`\n   - React frontend on `http://localhost:3000`\n\n### Manual Setup (Alternative)\n\nIf you prefer to start services manually:\n\n1. **Start Flask search API:**\n   ```bash\n   python app.py\n   ```\n\n2. **Start Mastra AI backend:**\n   ```bash\n   cd mastra-backend\n   npm start\n   ```\n\n3. **Start React frontend:**\n   ```bash\n   cd refnet/frontend\n   npm start\n   ```\n\n### Docker Setup (Production)\n\n```bash\n# Set your OpenAI API key\nexport OPENAI_API_KEY='your-openai-api-key-here'\n\n# Start with Docker Compose\ndocker-compose up\n```\n\n### Production Build\n\nTo build the frontend for production:\n\n```bash\ncd refnet/frontend\nnpm run build\n```\n\nThe built files will be in `refnet/frontend/build/` and will be automatically served by the Flask backend.\n\n## Usage\n\n1. **Search Papers**: Use the landing page to search for research papers by entering keywords, author names, or topics.\n\n2. **Select Papers**: \n   - Use checkboxes to select multiple papers from search results\n   - Click \"Build Graph\" to create a combined citation network from all selected papers\n   - Or click \"View Graph\" on individual papers for single-paper networks\n\n3. **Explore Network**: \n   - Click and drag nodes to rearrange the graph\n   - Click nodes to select/deselect them\n   - Use the controls to adjust graph parameters (iterations, limits)\n   - Export selected papers as JSON\n\n4. **AI Analysis**: \n   - Click the chat button to open the AI research assistant\n   - Ask questions about your selected papers\n   - Get intelligent insights, comparisons, and research recommendations\n   - The AI understands your paper context and graph relationships\n\n5. **Generate Review Papers**:\n   - Select papers from your graph\n   - Click \"Generate Survey Paper\" to create AI-powered literature review\n   - Export as PDF or text file\n\n6. **Navigate**: Use the back button to return to search results or start a new search.\n\n## API Endpoints\n\n### Search\n- `GET /api/search?q=query&page=1&per_page=25&sort=cited_by_count` - Search papers\n\n### Papers\n- `GET /api/paper/{paper_id}` - Get paper details\n- `GET /api/paper/{paper_id}/citations` - Get paper citations\n- `GET /api/paper/{paper_id}/references` - Get paper references\n\n### Graph\n- `GET /api/graph/{paper_id}?iterations=3&cited_limit=5&ref_limit=5` - Build citation graph from single paper\n- `POST /api/graph/multiple` - Build graph from multiple papers (multiselect)\n- `GET /api/graph/data` - Get current graph data\n- `POST /api/graph/clear` - Clear current graph\n\n### AI Backend (Mastra)\n- `POST /chat` - AI chat and research analysis\n- `GET /health` - Health check\n\n## Project Structure\n\n```\nRefNet/\n├── app.py                    # Flask search API entry point\n├── config.py                # Configuration settings\n├── requirements.txt         # Python dependencies\n├── mastra-backend/          # Mastra AI backend (Node.js + Express)\n│   ├── server.js           # AI agent server\n│   ├── package.json        # Backend dependencies\n│   └── README.md           # Backend documentation\n├── refnet/\n│   ├── api/                # API route blueprints\n│   │   ├── chat_routes.py  # Chat API routes\n│   │   ├── graph_routes.py # Graph API routes\n│   │   ├── paper_routes.py # Paper API routes\n│   │   └── search_routes.py # Search API routes\n│   ├── models/             # Data models\n│   │   ├── graph.py        # Graph data models\n│   │   └── paper.py        # Paper data models\n│   ├── services/           # Business logic services\n│   │   ├── graph_service.py # Graph processing\n│   │   └── openalex_service.py # OpenAlex API integration\n│   ├── utils/              # Utility functions\n│   │   ├── rate_limiter.py # API rate limiting\n│   │   └── validators.py   # Data validation\n│   ├── tests/              # Test files\n│   └── frontend/           # React frontend\n│       ├── src/\n│       │   ├── components/\n│       │   │   ├── GraphViewerClean.js    # Main graph visualization\n│       │   │   ├── FloatingCedarChat.js   # AI chat interface\n│       │   │   ├── LandingPage.js         # Search interface\n│       │   │   └── ChatTracker.js         # Chat management\n│       │   ├── services/\n│       │   │   ├── api.js                 # API client\n│       │   │   └── cedarAgent.js          # AI agent service\n│       │   ├── cedar/                     # AI chat agent configuration\n│       │   └── ...\n│       ├── public/\n│       │   ├── index.html\n│       │   ├── favicon.ico\n│       │   ├── logo.svg\n│       │   ├── logo192.png\n│       │   └── manifest.json              # PWA manifest\n│       └── package.json\n├── docker-compose.yml       # Docker Compose configuration\n├── Dockerfile.flask         # Flask API Docker image\n├── Dockerfile.mastra        # Mastra AI Docker image\n├── start_cedar_mastra.sh    # Development startup script\n└── README.md\n```\n\n## Technologies Used\n\n### Backend\n- **Flask**: Search API framework\n- **Express.js**: Mastra AI backend framework\n- **OpenAI GPT-4o**: Research analysis AI\n- **OpenAlex API**: Research paper data source\n- **NetworkX**: Graph analysis and processing\n- **Flask-CORS**: Cross-origin resource sharing\n\n### Frontend\n- **React 18**: UI framework\n- **React Router**: Client-side routing\n- **D3.js**: Graph visualization\n- **Axios**: HTTP client\n- **Tailwind CSS**: Styling\n- **PWA**: Progressive Web App capabilities\n\n### Deployment\n- **Docker**: Containerization\n- **AWS EC2**: Cloud hosting\n- **Docker Compose**: Multi-service orchestration\n\n## Review Paper Generation\n\nThe system generates comprehensive literature reviews using AI-powered content creation:\n\n1. **Paper Selection**: Users select papers from the citation graph\n2. **AI Analysis**: Each paper gets an AI-generated summary via GPT-4o\n3. **Content Generation**: Creates 5 sections (Abstract, Introduction, Fundamentals, Types & Categories, State-of-the-Art)\n4. **PDF Export**: Uses browser print functionality for professional PDF output\n5. **Fallback**: Text file export if PDF generation fails\n\n**Tech Stack for Review Generation:**\n- **AI Backend**: Mastra (Express.js + OpenAI GPT-4o)\n- **PDF Generation**: Browser native print functionality\n- **Content Processing**: Custom algorithms for domain detection and title generation\n- **Formatting**: HTML-to-PDF with academic styling\n\n## Contributing\n\n1. Fork the repository\n2. Create a feature branch\n3. Make your changes\n4. Add tests if applicable\n5. Submit a pull request\n\n## License\n\nThis project is licensed under the MIT License - see the LICENSE file for details.\n\n## Acknowledgments\n\n- [OpenAlex](https://openalex.org/) for providing research paper data\n- [D3.js](https://d3js.org/) for graph visualization capabilities\n- [OpenAI](https://openai.com/) for AI-powered research analysis\n- The academic research community for inspiration and use cases\n- HackGT 12 organizers and judges for the recognition\n",
-  },
-  "nikhileshthiru/work-experience/README.md": {
-    type: "markdown",
-    content: `# Work Experience
-
-## Georgia Tech - Undergraduate Researcher (Aug 2025 - Present)
-Machine Learning for Anomaly Detection in RF Systems
-
-- Improved anomaly detection accuracy by 32% through zero-shot and continual learning experiments.
-- Processed 10M+ IQ samples daily using multimodal pipelines (IQ, spectrogram, PCA features).
-- Reduced false positives by 25% via fusion-based model strategies.
-- Increased experiment throughput by 40% through reusable preprocessing and tracking workflows.
-- Deployed trained models to USRP hardware for live jamming and spoofing anomaly detection.
-
-## IBeeAnalytics - Software Engineering Intern (Aug 2023 - May 2025)
-Web Development and Client Solutions Team
-
-- Built and maintained websites and dashboards across 15+ production client projects.
-- Automated CI/CD workflows (Vercel + AWS) for zero-downtime rollouts.
-- Improved internal template setup speed by 45% and performance by 35%.
-- Supported debugging and reliability efforts across 20+ active client codebases.
-`,
-  },
-  "nikhileshthiru/skills/README.md": {
-    type: "markdown",
-    content: `# Skills
-
-## Languages
-- Python
-- Java
-- JavaScript
-- SQL
-- HTML/CSS
-
-## Frameworks and Libraries
-- React
-- Node.js
-- Flask
-- PyTorch
-- NumPy
-- Pandas
-- NetworkX
-- D3.js
-
-## Tools and Platforms
-- Docker
-- Firebase
-- Git
-- Linux
-- AWS (EC2)
-- Vercel
-- REST APIs
-- CI/CD pipelines
-
-## Certifications
-- IT Specialist - Software Development
-- Microsoft Office Specialist: PowerPoint Associate
-`,
-  },
-  "nikhileshthiru/contact/README.md": {
-    type: "markdown",
-    content: `# Contact
-- Email (Primary): nikhilesh.thiru@gmail.com
-- Email (Academic): nthiruve3@gatech.edu
-- Phone: 470-621-5274
-- LinkedIn: https://www.linkedin.com/in/nikhilesh-thiruvengadam
-- GitHub: https://github.com/NikhileshThiru
-- X: ${xProfileUrl}
-- Resume: [Resume.pdf](${resumePdfUrl})
-- Location: Cumming, Georgia, United States
-`,
-  },
-};
 function setActiveScreen(screenName) {
   for (const [name, element] of Object.entries(screens)) {
     const isActive = name === screenName;
@@ -432,22 +246,48 @@ async function startBootExperience() {
   await runBootSequence();
 }
 
+let bootSkipArmedAt = 0;
+
+function requestBootSkip(event) {
+  if (event instanceof KeyboardEvent && (event.repeat || shouldIgnoreStartupKey(event))) {
+    return;
+  }
+  // The gesture that starts the boot must never also skip it: the initial
+  // pointerdown bubbles to document after these listeners attach, and held
+  // keys auto-repeat. Only honor a deliberate second gesture.
+  if (performance.now() < bootSkipArmedAt) {
+    return;
+  }
+  bootSkipRequested = true;
+}
+
 async function runBootSequence() {
   setActiveScreen("boot");
   biosText.innerHTML = "";
+
+  bootSkipArmedAt = performance.now() + 900;
+  document.addEventListener("keydown", requestBootSkip);
+  document.addEventListener("pointerdown", requestBootSkip);
 
   if (soundEnabled) {
     playAudio(biosAudio, false);
   }
 
-  for (let pageIndex = 0; pageIndex < biosPages.length; pageIndex += 1) {
+  for (let pageIndex = 0; pageIndex < biosPages.length && !bootSkipRequested; pageIndex += 1) {
     const page = biosPages[pageIndex];
     const body = buildBiosPage(page);
 
     for (let lineIndex = 0; lineIndex < page.lines.length; lineIndex += 1) {
+      if (bootSkipRequested) {
+        break;
+      }
       const step = page.lines[lineIndex];
       await renderBiosLine(body, step, lineIndex);
       await wait(biosStepPause(step, lineIndex));
+    }
+
+    if (bootSkipRequested) {
+      break;
     }
 
     await wait(page.pagePause ?? 220);
@@ -458,6 +298,10 @@ async function runBootSequence() {
       biosText.innerHTML = "";
     }
   }
+
+  document.removeEventListener("keydown", requestBootSkip);
+  document.removeEventListener("pointerdown", requestBootSkip);
+  bootSkipRequested = false;
 
   await wait(120);
   stopAudio(biosAudio);
@@ -634,8 +478,18 @@ function playClickSound() {
   });
 }
 
+const SPEAKER_ON_SVG = `<svg class="tray-speaker" viewBox="0 0 16 16" aria-hidden="true">
+  <path d="M2 6h2.6L8 3v10L4.6 10H2z" fill="currentColor"/>
+  <path d="M10.2 5.4a3.6 3.6 0 0 1 0 5.2M12 3.6a6.2 6.2 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+</svg>`;
+
+const SPEAKER_OFF_SVG = `<svg class="tray-speaker" viewBox="0 0 16 16" aria-hidden="true">
+  <path d="M2 6h2.6L8 3v10L4.6 10H2z" fill="currentColor"/>
+  <path d="M10 6l4 4M14 6l-4 4" fill="none" stroke="#b00" stroke-width="1.5" stroke-linecap="round"/>
+</svg>`;
+
 function updateSoundToggle() {
-  soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
+  soundToggle.innerHTML = soundEnabled ? SPEAKER_ON_SVG : SPEAKER_OFF_SVG;
   soundToggle.setAttribute("aria-label", soundEnabled ? "Mute sound" : "Unmute sound");
   soundToggle.title = soundEnabled ? "Mute sound" : "Unmute sound";
   soundToggle.classList.toggle("muted", !soundEnabled);
@@ -1281,24 +1135,36 @@ function bindDesktopInteractions() {
     closeStartMenu();
   };
   const openLinkedIn = () => {
-    openBrowserTo("https://www.linkedin.com/in/nikhilesh-thiruvengadam");
+    openBrowserTo(profileLinks.linkedin);
     closeStartMenu();
   };
   const openGitHub = () => {
-    openBrowserTo("https://github.com/NikhileshThiru");
+    openBrowserTo(profileLinks.github);
     closeStartMenu();
   };
   const openX = () => {
-    openBrowserTo(xProfileUrl);
+    openBrowserTo(profileLinks.x);
     closeStartMenu();
   };
 
-  vscodeDesktopIcon.addEventListener("dblclick", openVscode);
-  ieDesktopIcon.addEventListener("dblclick", openIe);
-  resumeDesktopIcon.addEventListener("dblclick", openResume);
-  linkedinDesktopIcon.addEventListener("dblclick", openLinkedIn);
-  githubDesktopIcon.addEventListener("dblclick", openGitHub);
-  xDesktopIcon.addEventListener("dblclick", openX);
+  const iconActions = [
+    [vscodeDesktopIcon, openVscode],
+    [ieDesktopIcon, openIe],
+    [resumeDesktopIcon, openResume],
+    [linkedinDesktopIcon, openLinkedIn],
+    [githubDesktopIcon, openGitHub],
+    [xDesktopIcon, openX],
+  ];
+
+  iconActions.forEach(([icon, openAction]) => {
+    icon.addEventListener("dblclick", openAction);
+    icon.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openAction();
+      }
+    });
+  });
 
   treeToggle.addEventListener("click", () => {
     filePanel.classList.toggle("open");
@@ -1372,16 +1238,86 @@ function bindBrowserApp() {
   browserInitialized = true;
 }
 
+function desktopIconArtMarkup(iconElement) {
+  const art = iconElement ? iconElement.querySelector(".desktop-icon-art") : null;
+  return art ? art.outerHTML : "";
+}
+
 function bindStartMenu() {
+  const content = startMenu.querySelector(".start-menu-content");
+  content.innerHTML = "";
+
+  const items = [
+    { label: "Visual Studio Code", icon: desktopIconArtMarkup(vscodeDesktopIcon), action: () => openApp("vscode") },
+    { label: "Internet Explorer", icon: desktopIconArtMarkup(ieDesktopIcon), action: () => openBrowserHome() },
+    { label: "Resume.pdf", icon: desktopIconArtMarkup(resumeDesktopIcon), action: () => openBrowserTo(resumePdfUrl) },
+    { separator: true },
+    { label: "LinkedIn", icon: desktopIconArtMarkup(linkedinDesktopIcon), action: () => openBrowserTo(profileLinks.linkedin) },
+    { label: "GitHub", icon: desktopIconArtMarkup(githubDesktopIcon), action: () => openBrowserTo(profileLinks.github) },
+    { label: "X", icon: desktopIconArtMarkup(xDesktopIcon), action: () => openBrowserTo(profileLinks.x) },
+    { separator: true },
+    { label: "Restart...", icon: `<img class="start-item-restart" src="${new URL("./assets/start-95.png", import.meta.url).href}" alt="">`, action: () => window.location.reload() },
+  ];
+
+  items.forEach((item) => {
+    if (item.separator) {
+      const divider = document.createElement("div");
+      divider.className = "start-separator";
+      content.appendChild(divider);
+      return;
+    }
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "start-item";
+
+    const iconSpan = document.createElement("span");
+    iconSpan.className = "start-item-icon";
+    iconSpan.setAttribute("aria-hidden", "true");
+    iconSpan.innerHTML = item.icon;
+
+    const labelSpan = document.createElement("span");
+    labelSpan.textContent = item.label;
+
+    button.append(iconSpan, labelSpan);
+    button.addEventListener("click", () => {
+      closeStartMenu();
+      item.action();
+    });
+    content.appendChild(button);
+  });
+
   startButton.addEventListener("click", (event) => {
     event.preventDefault();
-    window.location.reload();
+    event.stopPropagation();
+    if (startMenu.classList.contains("hidden")) {
+      openStartMenu();
+    } else {
+      closeStartMenu();
+    }
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (startMenu.classList.contains("hidden")) {
+      return;
+    }
+    const target = event.target;
+    if (target instanceof Node && (startMenu.contains(target) || startButton.contains(target))) {
+      return;
+    }
+    closeStartMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeStartMenu();
+    }
   });
 }
 
 function openStartMenu() {
-  startMenu.classList.add("hidden");
-  startButton.classList.remove("active");
+  startMenu.classList.remove("hidden");
+  startButton.classList.add("active");
 }
 
 function closeStartMenu() {
@@ -1960,10 +1896,13 @@ function highlightMarkdownLine(line) {
       return place(`<span class="tok-link">![${escapeHtml(alt)}](${escapeHtml(rawUrl.trim())})</span>`);
     }
 
-    const safeSrc = escapeHtml(resolvedUrl);
+    const widthMatch = resolvedUrl.match(/#w=(\d+)$/);
+    const displayUrl = widthMatch ? resolvedUrl.slice(0, -widthMatch[0].length) : resolvedUrl;
+    const widthAttr = widthMatch ? ` style="width:${widthMatch[1]}px"` : "";
+    const safeSrc = escapeHtml(displayUrl);
     const safeAlt = escapeHtml(alt || "Markdown image");
     return place(
-      `<a class="editor-link md-image-link" href="${safeSrc}" rel="noreferrer noopener"><img class="md-inline-image" src="${safeSrc}" alt="${safeAlt}" loading="lazy" decoding="async"></a>`
+      `<a class="editor-link md-image-link" href="${safeSrc}" rel="noreferrer noopener"><img class="md-inline-image" src="${safeSrc}" alt="${safeAlt}"${widthAttr} loading="lazy" decoding="async"></a>`
     );
   });
 
@@ -2127,6 +2066,12 @@ function updateClock() {
   clock.textContent = now.toLocaleTimeString([], {
     hour: "numeric",
     minute: "2-digit",
+  });
+  clock.title = now.toLocaleDateString([], {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
