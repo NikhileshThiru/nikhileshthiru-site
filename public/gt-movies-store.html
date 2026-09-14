@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GT Movies Store | Nikhilesh Thiru</title>
-  <meta name="description" content="GT Movies Store, a Django web app built by Nikhilesh Thiruvengadam for Georgia Tech CS 2340: about me, project overview and user stories, development process, and demo video.">
+  <meta name="description" content="GT Movies Store, a Django movie store web app built by Nikhilesh Thiruvengadam for Georgia Tech CS 2340.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#008080">
   <link rel="canonical" href="https://nikhileshthiru.pages.dev/gt-movies-store">
@@ -28,14 +28,6 @@
   </script>
   <script defer data-domain="nikhileshthiru.pages.dev" src="https://plausible.io/js/script.tagged-events.outbound-links.pageview-props.js"></script>
 
-  <script>
-    // A screenshot slot shows a placeholder until its image file exists.
-    function showScreenshotPlaceholder(img) {
-      img.parentElement.removeAttribute("href");
-      img.closest(".shot").classList.add("is-placeholder");
-    }
-  </script>
-
   <style>
     @font-face {
       font-family: "MS Sans Serif 8pt";
@@ -53,7 +45,6 @@
       --title-end: #1084d0;
       --ink: #1b1b1b;
       --muted: #4a4a4a;
-      --rule: #dcdcdc;
       --ui: "MS Sans Serif 8pt", "MS Sans Serif", Tahoma, "Segoe UI", sans-serif;
       --text: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --mono: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
@@ -91,6 +82,7 @@
     }
 
     .page {
+      width: 100%;
       max-width: 60rem;
       margin-inline: auto;
       display: grid;
@@ -173,9 +165,7 @@
       margin-bottom: 0;
     }
 
-    .win-body p,
-    .win-body ul:not(.shots),
-    .win-body dl {
+    .win-body p {
       max-width: 70ch;
     }
 
@@ -191,21 +181,6 @@
       color: var(--navy);
       font-size: 1.2rem;
       line-height: 1.3;
-    }
-
-    code {
-      padding: 0.1em 0.35em;
-      background: #eef0f5;
-      border-radius: 2px;
-      font-family: var(--mono);
-      font-size: 0.875em;
-    }
-
-    .placeholder {
-      padding: 0 0.3em;
-      background: #fff6bf;
-      border: 1px dashed #9a8000;
-      font-style: italic;
     }
 
     /* Header */
@@ -342,134 +317,6 @@
       font-size: 0.75rem;
     }
 
-    /* Project details */
-
-    .facts {
-      display: grid;
-      grid-template-columns: max-content 1fr;
-      gap: 0.4rem 1.25rem;
-      margin: 0;
-    }
-
-    .facts dt {
-      font-weight: 600;
-    }
-
-    .facts dd {
-      margin: 0;
-    }
-
-    .shots {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
-      gap: 1rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .shot {
-      margin: 0;
-    }
-
-    .shot-frame {
-      display: block;
-      position: relative;
-      aspect-ratio: 16 / 10;
-      max-width: 100%;
-      overflow: hidden;
-      background: var(--face);
-      border: 2px solid;
-      border-color: var(--sunken);
-    }
-
-    .shot-frame img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-    }
-
-    .shot figcaption {
-      margin-top: 0.4rem;
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
-    .shot.is-placeholder img {
-      display: none;
-    }
-
-    .shot.is-placeholder .shot-frame {
-      display: grid;
-      place-items: center;
-      background: repeating-linear-gradient(45deg, #d6d6d6 0 10px, #cdcdcd 10px 20px);
-    }
-
-    .shot.is-placeholder .shot-frame::after {
-      content: "Screenshot coming soon";
-      max-width: calc(100% - 16px);
-      padding: 4px 8px;
-      background: var(--face);
-      border: 1px solid var(--shadow);
-      color: #222;
-      font-family: var(--ui);
-      font-size: 0.75rem;
-      text-align: center;
-    }
-
-    .table-scroll {
-      overflow-x: auto;
-      border: 2px solid;
-      border-color: var(--sunken);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    thead th {
-      padding: 8px 12px;
-      background: var(--face);
-      border-right: 1px solid var(--shadow);
-      font-family: var(--ui);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    tbody th,
-    tbody td {
-      padding: 10px 12px;
-      border-top: 1px solid var(--rule);
-      text-align: left;
-      vertical-align: top;
-      overflow-wrap: anywhere;
-    }
-
-    tbody th {
-      font-weight: 600;
-    }
-
-    tbody tr:nth-child(even) {
-      background: #f5f5f7;
-    }
-
-    .col-num {
-      width: 3rem;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .col-story {
-      width: 34%;
-    }
-
     /* Demo video */
 
     .video-frame {
@@ -489,27 +336,9 @@
       border: 0;
     }
 
-    .video-placeholder {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-content: center;
-      justify-items: center;
-      gap: 0.85rem;
-      padding: 1rem;
-      color: #e6e6e6;
-      text-align: center;
-    }
-
-    .video-placeholder svg {
-      width: clamp(44px, 10vw, 64px);
-      height: auto;
-    }
-
-    .video-placeholder p {
-      margin: 0;
-      font-family: var(--ui);
-      font-size: 0.85rem;
+    .video-link {
+      margin: 0.75rem 0 0;
+      font-size: 0.95rem;
     }
 
     /* Footer */
@@ -546,30 +375,6 @@
       .btn {
         max-width: none;
       }
-
-      .shots {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.75rem;
-      }
-
-      .facts {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .facts dd {
-        margin-bottom: 0.6rem;
-      }
-
-      tbody th,
-      tbody td,
-      thead th {
-        padding: 8px;
-      }
-
-      .col-num {
-        width: 2.25rem;
-      }
     }
   </style>
 </head>
@@ -588,22 +393,20 @@
         <p class="byline">Nikhilesh Thiruvengadam</p>
 
         <div class="cta-row">
-          <!-- TODO: replace with the PythonAnywhere URL (href and visible text) -->
-          <a class="btn" href="https://REPLACE-ME.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">
+          <a class="btn" href="https://nikhilesh2007.pythonanywhere.com/" target="_blank" rel="noopener noreferrer">
             <span class="btn-label">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M2 3h20v14H2zm2 2v10h16V5zm4 14h8v2H8z"/></svg>
               Live app
             </span>
-            <span class="btn-url">REPLACE-ME.pythonanywhere.com</span>
+            <span class="btn-url">nikhilesh2007.pythonanywhere.com</span>
           </a>
 
-          <!-- TODO: replace with the GitHub repo URL (href and visible text) -->
-          <a class="btn" href="https://github.com/NikhileshThiru/REPLACE-ME" target="_blank" rel="noopener noreferrer">
+          <a class="btn" href="https://github.com/NikhileshThiru/moviesstore" target="_blank" rel="noopener noreferrer">
             <span class="btn-label">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.3-3.5-1.3-.4-1-.9-1.2-.9-1.2-.8-.5.1-.5.1-.5.9.1 1.4.9 1.4.9.8 1.4 2.2 1 2.7.8.1-.6.3-1 .6-1.3-2.3-.3-4.7-1.1-4.7-5A4 4 0 0 1 6.2 8c-.1-.3-.4-1.3.1-2.8 0 0 .8-.3 2.8 1A9.7 9.7 0 0 1 12 6c.9 0 1.8.1 2.7.3 2-1.3 2.8-1 2.8-1 .6 1.5.3 2.5.2 2.8a4 4 0 0 1 1.1 2.8c0 3.9-2.4 4.7-4.7 5 .3.3.6.8.6 1.6V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
               GitHub repo
             </span>
-            <span class="btn-url">github.com/NikhileshThiru/REPLACE-ME</span>
+            <span class="btn-url">github.com/NikhileshThiru/moviesstore</span>
           </a>
         </div>
       </div>
@@ -612,7 +415,7 @@
     <nav class="toolbar" aria-label="Sections on this page">
       <ol>
         <li><a href="#about"><span class="num">1</span>About Me</a></li>
-        <li><a href="#project"><span class="num">2</span>GT Movies Store</a></li>
+        <li><a href="#project"><span class="num">2</span>Project Description</a></li>
         <li><a href="#process"><span class="num">3</span>Development Process</a></li>
         <li><a href="#demo"><span class="num">4</span>Demo Video</a></li>
       </ol>
@@ -623,8 +426,7 @@
       <section id="about" class="win" aria-labelledby="about-heading">
         <div class="win-title"><h2 id="about-heading">1. About Me</h2></div>
         <div class="win-body">
-          <p>I'm Nikhilesh Thiruvengadam, a Computer Science student at Georgia Tech focused on AI and systems architecture. I build production software end to end: AI/ML systems, full-stack products, and the infrastructure underneath them.</p>
-          <p>I'm also the co-founder and CTO of Scribur, the operating system for UGC teams, where I lead the architecture and AI platform.</p>
+          <p>I'm Nikhilesh Thiruvengadam, a Computer Science student at Georgia Tech. I like building web apps and software projects, and I'm also the co-founder and CTO of Scribur, a startup that makes software for brands that work with content creators.</p>
           <p>
             <a href="/">Portfolio</a> ·
             <a href="https://github.com/NikhileshThiru" target="_blank" rel="noopener noreferrer">GitHub</a> ·
@@ -633,210 +435,12 @@
         </div>
       </section>
 
-      <!-- ===== 2. GT MOVIES STORE ===== -->
+      <!-- ===== 2. PROJECT DESCRIPTION ===== -->
       <section id="project" class="win" aria-labelledby="project-heading">
-        <div class="win-title"><h2 id="project-heading">2. GT Movies Store</h2></div>
+        <div class="win-title"><h2 id="project-heading">2. Project Description</h2></div>
         <div class="win-body">
-          <h3>Description</h3>
-          <p>GT Movies Store is a Django web application where users browse a movie catalog, read and write reviews, add movies to a shopping cart, and place orders. It includes user registration and authentication, a session-based cart, full CRUD on reviews, order history, and an admin interface for managing users, movies, reviews, and orders.</p>
-
-          <h3>Stack</h3>
-          <dl class="facts">
-            <dt>Language &amp; framework</dt>
-            <dd>Python 3.11, Django 5.0</dd>
-            <dt>Database</dt>
-            <dd>SQLite</dd>
-            <dt>Front end</dt>
-            <dd>Bootstrap 5, Font Awesome, Google Fonts (Poppins)</dd>
-            <dt>Image uploads</dt>
-            <dd>Pillow</dd>
-            <dt>Hosting</dt>
-            <dd>PythonAnywhere</dd>
-          </dl>
-
-          <h3>Architecture</h3>
-          <p>Django's MVT pattern across four apps:</p>
-          <dl class="facts">
-            <dt><code>home</code></dt>
-            <dd>Static pages</dd>
-            <dt><code>movies</code></dt>
-            <dd>Catalog and reviews</dd>
-            <dt><code>accounts</code></dt>
-            <dd>Authentication and orders</dd>
-            <dt><code>cart</code></dt>
-            <dd>Session-based cart</dd>
-          </dl>
-          <p>A project-level base template provides the nav, header, and footer; each app supplies its own page templates. Authentication and the admin panel use Django's built-ins.</p>
-
-          <h3>Screenshots</h3>
-          <!--
-            Drop images into public/gt-movies-store-assets/screenshots/ with these names
-            and they appear automatically; missing files show a placeholder:
-            movie-list.png, movie-detail.png, cart.png, order-history.png, admin.png
-          -->
-          <ul class="shots">
-            <li>
-              <figure class="shot">
-                <a class="shot-frame" href="/gt-movies-store-assets/screenshots/movie-list.png" target="_blank" rel="noopener">
-                  <img src="/gt-movies-store-assets/screenshots/movie-list.png" alt="Movie list page with movies shown as cards and a title search form" loading="lazy" onerror="showScreenshotPlaceholder(this)">
-                </a>
-                <figcaption>Movie list (<code>/movies</code>)</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="shot">
-                <a class="shot-frame" href="/gt-movies-store-assets/screenshots/movie-detail.png" target="_blank" rel="noopener">
-                  <img src="/gt-movies-store-assets/screenshots/movie-detail.png" alt="Movie detail page with the movie's information and its reviews" loading="lazy" onerror="showScreenshotPlaceholder(this)">
-                </a>
-                <figcaption>Movie detail with reviews</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="shot">
-                <a class="shot-frame" href="/gt-movies-store-assets/screenshots/cart.png" target="_blank" rel="noopener">
-                  <img src="/gt-movies-store-assets/screenshots/cart.png" alt="Shopping cart listing movies with quantities and a total" loading="lazy" onerror="showScreenshotPlaceholder(this)">
-                </a>
-                <figcaption>Cart (<code>/cart</code>)</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="shot">
-                <a class="shot-frame" href="/gt-movies-store-assets/screenshots/order-history.png" target="_blank" rel="noopener">
-                  <img src="/gt-movies-store-assets/screenshots/order-history.png" alt="Order history page listing past orders with items and totals" loading="lazy" onerror="showScreenshotPlaceholder(this)">
-                </a>
-                <figcaption>Order history (<code>/accounts/orders</code>)</figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure class="shot">
-                <a class="shot-frame" href="/gt-movies-store-assets/screenshots/admin.png" target="_blank" rel="noopener">
-                  <img src="/gt-movies-store-assets/screenshots/admin.png" alt="Django admin site with users, movies, reviews, and orders" loading="lazy" onerror="showScreenshotPlaceholder(this)">
-                </a>
-                <figcaption>Admin</figcaption>
-              </figure>
-            </li>
-          </ul>
-
-          <h3 id="user-stories-heading">User stories</h3>
-          <div class="table-scroll" role="region" aria-labelledby="user-stories-heading" tabindex="0">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col" class="col-num">#</th>
-                  <th scope="col" class="col-story">User story</th>
-                  <th scope="col">How it's satisfied</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="col-num">1</td>
-                  <th scope="row">See info about the store</th>
-                  <td>About page in the <code>home</code> app, linked from the nav</td>
-                </tr>
-                <tr>
-                  <td class="col-num">2</td>
-                  <th scope="row">Register an account</th>
-                  <td><code>/accounts/signup</code> using a customized <code>UserCreationForm</code></td>
-                </tr>
-                <tr>
-                  <td class="col-num">3</td>
-                  <th scope="row">Log in</th>
-                  <td><code>/accounts/login</code> using Django's authentication system</td>
-                </tr>
-                <tr>
-                  <td class="col-num">4</td>
-                  <th scope="row">View the list of movies</th>
-                  <td><code>/movies</code> renders all <code>Movie</code> records as Bootstrap cards</td>
-                </tr>
-                <tr>
-                  <td class="col-num">5</td>
-                  <th scope="row">Search movies by title</th>
-                  <td>Search form on <code>/movies</code>, case-insensitive name match</td>
-                </tr>
-                <tr>
-                  <td class="col-num">6</td>
-                  <th scope="row">Access a shopping cart</th>
-                  <td><code>/cart</code> lists every movie added, with quantities and total</td>
-                </tr>
-                <tr>
-                  <td class="col-num">7</td>
-                  <th scope="row">Add items to the cart</th>
-                  <td>Quantity form on the movie detail page, stored in the Django session</td>
-                </tr>
-                <tr>
-                  <td class="col-num">8</td>
-                  <th scope="row">Create movie reviews</th>
-                  <td>Review form on the movie detail page, saved against the logged-in user and that movie</td>
-                </tr>
-                <tr>
-                  <td class="col-num">9</td>
-                  <th scope="row">Remove all items from the cart</th>
-                  <td>Remove All button clears the cart session</td>
-                </tr>
-                <tr>
-                  <td class="col-num">10</td>
-                  <th scope="row">Edit my reviews</th>
-                  <td>Edit page reachable only by the review's author</td>
-                </tr>
-                <tr>
-                  <td class="col-num">11</td>
-                  <th scope="row">Delete my reviews</th>
-                  <td>Delete action, author only</td>
-                </tr>
-                <tr>
-                  <td class="col-num">12</td>
-                  <th scope="row">See the reviews of a movie</th>
-                  <td>Reviews listed on the movie detail page</td>
-                </tr>
-                <tr>
-                  <td class="col-num">13</td>
-                  <th scope="row">See movie details</th>
-                  <td><code>/movies/&lt;id&gt;</code> shows name, price, description, and image</td>
-                </tr>
-                <tr>
-                  <td class="col-num">14</td>
-                  <th scope="row">See a list of my orders</th>
-                  <td><code>/accounts/orders</code> lists the user's orders with items and totals</td>
-                </tr>
-                <tr>
-                  <td class="col-num">15</td>
-                  <th scope="row">Access from any desktop browser</th>
-                  <td>Deployed publicly on PythonAnywhere</td>
-                </tr>
-                <tr>
-                  <td class="col-num">16</td>
-                  <th scope="row">Responsive GUI</th>
-                  <td>Bootstrap 5 grid plus a viewport meta tag, verified at phone, tablet, and desktop widths</td>
-                </tr>
-                <tr>
-                  <td class="col-num">17</td>
-                  <th scope="row">Admin: manage users</th>
-                  <td>Django admin, built-in <code>User</code> model</td>
-                </tr>
-                <tr>
-                  <td class="col-num">18</td>
-                  <th scope="row">Admin: manage movies</th>
-                  <td><code>Movie</code> registered in the admin, with ordering and search</td>
-                </tr>
-                <tr>
-                  <td class="col-num">19</td>
-                  <th scope="row">Admin: manage reviews</th>
-                  <td><code>Review</code> registered in the admin</td>
-                </tr>
-                <tr>
-                  <td class="col-num">20</td>
-                  <th scope="row">Admin: manage orders</th>
-                  <td><code>Order</code> and <code>Item</code> registered in the admin</td>
-                </tr>
-                <tr>
-                  <td class="col-num">21</td>
-                  <th scope="row">Report inappropriate reviews</th>
-                  <!-- TODO: describe the report-review implementation -->
-                  <td><span class="placeholder">Placeholder: implementation description to come</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <p>GT Movies Store is an online movie store I built for CS 2340. Users can sign up, log in, browse and search for movies, and leave reviews on them, including reporting reviews that are inappropriate. They can also add movies to a cart, place an order, and look back at their past orders. There's an admin page for managing users, movies, reviews, and orders too.</p>
+          <p>I built it with Python 3.11, Django, and SQLite. It uses Bootstrap for the styling and Pillow for the movie images, and it's hosted on PythonAnywhere.</p>
         </div>
       </section>
 
@@ -844,22 +448,15 @@
       <section id="process" class="win" aria-labelledby="process-heading">
         <div class="win-title"><h2 id="process-heading">3. Development Process</h2></div>
         <div class="win-body">
-          <h3>Methodology</h3>
-          <p>I followed <cite>Django 5 for the Impatient</cite> (Correa &amp; Lim) chapter by chapter, building the app incrementally and checking each section's output against the book's figures before moving on. I worked across multiple sessions rather than in one sitting, and I screen-recorded and narrated each session.</p>
+          <h3>How I worked</h3>
+          <p>I followed the book <cite>Django 5 for the Impatient</cite> chapter by chapter. After each section, I compared my pages to the screenshots in the book before moving on. I worked on it over a few sessions and screen recorded each one while talking through what I was doing.</p>
 
-          <h3>How I handled problems</h3>
-          <p>I started from what the page actually told me. Django's error pages name the exception, the file, and the line, so my first step was always to read that carefully instead of guessing. From there I reasoned about which file the problem had to be in: a page that won't load points at a URL pattern or a view, and a page that renders but looks wrong points at a template or the CSS.</p>
-          <p>Most of the bugs I hit had the same cause. The textbook prints long lines wrapped across two lines to fit the page width, and typing them in exactly as printed breaks them. HTML attributes, CSS class names, Django template tags, and Python statements all fail when a single token is split across lines. Once I recognized the pattern, these bugs were fast to track down: the symptom told me which file to open, and the fix was almost always joining two lines back together.</p>
+          <h3>Fixing problems</h3>
+          <p>When something broke, I started with the Django error page, since it tells you the error, the file, and the line. If a page wouldn't load at all, the problem was usually in the URLs or the view. If it loaded but looked wrong, it was usually in the template or the CSS.</p>
+          <p>Most of my bugs had the same cause. The book splits long lines of code across two lines so they fit on the page, and typing them in that way breaks them. This happened with HTML, CSS class names, template tags, and Python code. Once I noticed the pattern, the fix was usually just putting the two lines back together.</p>
 
-          <h3>A scope decision</h3>
-          <p>The textbook offers an optional migration from SQLite to MySQL. I read the section but stayed on SQLite. No user story requires MySQL, SQLite is Django's default, and it keeps deployment simpler.</p>
-
-          <h3>Resources used</h3>
-          <ul>
-            <li><cite>Django 5 for the Impatient</cite> by Correa &amp; Lim</li>
-            <li>The publisher's companion repository for the book</li>
-            <li>The official <a href="https://docs.djangoproject.com/en/5.0/" target="_blank" rel="noopener noreferrer">Django documentation</a></li>
-          </ul>
+          <h3>Staying with SQLite</h3>
+          <p>The book has an optional section on switching from SQLite to MySQL. I read it but stayed with SQLite, since none of the user stories needed MySQL and it made deploying easier.</p>
         </div>
       </section>
 
@@ -868,28 +465,15 @@
         <div class="win-title"><h2 id="demo-heading">4. Demo Video</h2></div>
         <div class="win-body">
           <div class="video-frame">
-            <!--
-              TODO: when the unlisted YouTube video is ready, delete the
-              .video-placeholder div below and uncomment this iframe, replacing
-              VIDEO_ID with the ID from the YouTube URL (youtube.com/watch?v=VIDEO_ID).
-              Do not add autoplay.
-
             <iframe
-              src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+              src="https://www.youtube-nocookie.com/embed/8NO2P0e6C3Y"
               title="GT Movies Store demo video"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
               loading="lazy"></iframe>
-            -->
-            <div class="video-placeholder" role="img" aria-label="Demo video placeholder">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
-                <rect x="2" y="2" width="60" height="60" fill="#c0c0c0" stroke="#fff" stroke-width="2"/>
-                <path d="M26 20v24l20-12z" fill="#000080"/>
-              </svg>
-              <p>Demo video coming soon</p>
-            </div>
           </div>
+          <p class="video-link"><a href="https://youtu.be/8NO2P0e6C3Y" target="_blank" rel="noopener noreferrer">Watch the demo on YouTube</a></p>
         </div>
       </section>
     </main>
