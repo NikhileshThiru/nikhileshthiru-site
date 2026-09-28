@@ -266,6 +266,15 @@ a {
   opacity: 0.82;
 }
 
+.desktop-watermark-award {
+  font-family: var(--mono);
+  font-size: clamp(0.52rem, 0.86vw, 0.62rem);
+  letter-spacing: 0.08em;
+  color: #0a0a0a;
+  white-space: nowrap;
+  opacity: 0.82;
+}
+
 .desktop-icon {
   position: absolute;
   top: 20px;

@@ -99,6 +99,7 @@ const browserNewTabHosts = [
   "github.com",
   "x.com",
   "twitter.com",
+  "devpost.com",
 ];
 
 function trackPlausibleEvent(eventName, props = {}) {

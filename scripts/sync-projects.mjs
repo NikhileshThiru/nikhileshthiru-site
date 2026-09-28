@@ -24,6 +24,8 @@ const IGNORED_REPOS = new Set([
   "java",
   "IBeeSite",
   "ibeeReplica.github.io",
+  "NikhileshThiru", // GitHub profile README
+  "moviesstore", // has its own page at /gt-movies-store
 ]);
 
 async function fetchJson(url) {
