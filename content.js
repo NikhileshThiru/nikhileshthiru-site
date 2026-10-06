@@ -68,6 +68,12 @@ export const treeData = {
           children: [{ name: "README.md", type: "file" }],
         },
         {
+          name: "dotfiles",
+          type: "folder",
+          open: false,
+          children: [{ name: "README.md", type: "file" }],
+        },
+        {
           name: "nikhileshthiru-site",
           type: "folder",
           open: false,
@@ -341,6 +347,40 @@ Python (Vercel serverless), React + TypeScript, Supabase (Postgres, Auth, Cron),
 `,
   },
 
+  "nikhileshthiru/projects/dotfiles/README.md": {
+    type: "markdown",
+    content: `# Dotfiles — Omarchy + macOS, One Repo
+
+The config I actually use on my Arch laptop and my Mac. GNU Stow links it. nvim, tmux, and Ghostty are shared; Hyprland, Spotify, and the rest stay Linux-only.
+
+![jarvis: Spotify, btop and cava on Omarchy](https://raw.githubusercontent.com/NikhileshThiru/dotfiles/main/screenshot.png)
+
+## What it does
+
+- One repo for both machines. \`install.sh\` links nvim, tmux, and Ghostty everywhere, and the Linux packages only on Omarchy. Existing configs get timestamped \`.bak\` copies so a re-run is safe.
+- \`jarvis\` tiles Spotify, btop, and cava onto an empty workspace — the screenshot above.
+- Changing the Omarchy theme re-themes Ghostty, tmux, btop, and any running Neovim sessions. Nothing in the repo changes.
+- Hybrid GPU: desktop apps stay on the Intel iGPU so the RTX 3060 can sit in RTD3. \`prime-run\` offloads when I need the dGPU.
+
+## Engineering story
+
+- Neovim 0.12 with the built-in \`vim.pack\`. On Omarchy it clones the current theme's plugin into its own pack dir, not into \`vim.pack\`, so a theme switch never rewrites the shared lockfile. A filesystem watcher on \`theme.name\` re-applies the colorscheme in running sessions.
+- Ghostty loads \`macos.conf\` or \`linux.conf\` with \`config-file = ?...\`. The \`?\` means the missing OS file is silent. \`install.sh\` only links the one for the current machine, using \`--no-folding\` so Stow's ignore actually works.
+- \`jarvis\` is launched by Hyprland itself, not as a child of the shell, so Ghostty debug logs don't dump into the launching terminal. If I type it in a terminal, it detaches, closes that terminal so it doesn't steal a tile, reuses an already-open Spotify window, and waits for each window to map before the next one.
+- tmux sources Omarchy's stock config when it's there (C-Space prefix, themed status bar), then re-applies my settings Omarchy would otherwise reset. macOS skips that block.
+- System files live under \`system/\` at the same paths they occupy on disk. The installer copies them with sudo, backs up anything that differs to \`~/.dotfiles-backup/\`, and rebuilds the initramfs if the GPU module files changed. i915 is loaded before nvidia so the Intel iGPU gets \`renderD128\`.
+- \`~/.local/bin\` stays a real directory (\`stow --no-folding bin\`) so other tools don't install into the repo.
+
+## Stack
+
+Arch Linux, Omarchy, Hyprland (Lua), Neovim 0.12, tmux, Ghostty, GNU Stow, Spicetify, btop, cava, starship, voxtype (local Whisper), bash.
+
+## Links
+
+- GitHub: https://github.com/NikhileshThiru/dotfiles
+`,
+  },
+
   "nikhileshthiru/projects/nikhileshthiru-site/README.md": {
     type: "markdown",
     content: `# nikhileshthiru-site — This Website
@@ -420,7 +460,7 @@ Web Development and Client Solutions Team
     content: `# Skills
 
 ## Languages
-- Python, TypeScript, JavaScript, Swift, Rust, Java, SQL, HTML/CSS
+- Python, TypeScript, JavaScript, Swift, Rust, Lua, Java, SQL, HTML/CSS
 
 ## AI / ML
 - PyTorch, zero-shot and continual learning, fusion models
@@ -439,7 +479,7 @@ Web Development and Client Solutions Team
 - FastAPI, Flask, Node.js, Fastify, Supabase, PostgreSQL (with row-level security), TimescaleDB, Stripe, WebSockets, SSE, REST APIs, MCP servers
 
 ## Infrastructure & Tooling
-- Docker, Git, GitHub Actions CI, Vercel serverless, AWS (EC2), Vultr, Linux
+- Docker, Git, GitHub Actions CI, Vercel serverless, AWS (EC2), Vultr, Linux (Arch, Hyprland), GNU Stow
 - Testing: pytest, Vitest, Playwright, XCTest
 
 ## Certifications
