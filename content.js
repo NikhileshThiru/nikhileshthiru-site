@@ -32,6 +32,12 @@ export const treeData = {
           children: [{ name: "README.md", type: "file" }],
         },
         {
+          name: "clef",
+          type: "folder",
+          open: false,
+          children: [{ name: "README.md", type: "file" }],
+        },
+        {
           name: "refnet",
           type: "folder",
           open: false,
@@ -125,7 +131,8 @@ I build production software end to end — AI/ML systems, full-stack products, a
 - HackGT 13 (2026): Best Use of Solana Winner for Rescu, disaster relief on Solana that lands aid in wallets in under a second. Built solo.
 - HackGT 12 (2025): 2nd Overall Winner out of 300+ teams for RefNet, an AI research platform spanning 250M+ papers.
 - Georgia Tech Undergraduate Researcher — machine learning for RF anomaly detection, processing 10M+ IQ samples daily.
-- Shipped six end-to-end products in the past year, from a fully on-device-AI iPhone app to an autonomous LLM trading research terminal that grades its own predictions.
+- Clef, running 24/7 on my homelab: an open decision model on a 6 GB laptop GPU watches 2,300+ job boards and pushes internship matches to my phone within minutes.
+- Shipped seven end-to-end products in the past year, from a fully on-device-AI iPhone app to an autonomous LLM trading research terminal that grades its own predictions.
 
 ## Start Here
 
@@ -179,6 +186,46 @@ Rust, Anchor, Solana Token-2022 (transfer hooks), TypeScript, Node.js, Fastify, 
 - Devpost: https://devpost.com/software/rescu-qfuz8e
 - GitHub: https://github.com/NikhileshThiru/rescu
 - Program on devnet: https://explorer.solana.com/address/GrxgRShVcGaESyztvHHtaCF8YMXVhK3Wq7AesbQCaLy5?cluster=devnet
+`,
+  },
+
+  "nikhileshthiru/projects/clef/README.md": {
+    type: "markdown",
+    content: `# Clef — Local AI Decision Engine on My Homelab
+
+An always-on laptop in my room runs an open decision model on its 6 GB GPU. It watches 2,300+ company job boards and pushes internship matches to my phone within minutes of them going live. It also filters AI, market, and startup news and keeps an eye on the laptop itself. Every API it uses is free.
+
+![Clef dashboard: filtered news, today's best internship matches, and the live decision core](https://raw.githubusercontent.com/NikhileshThiru/clef/main/docs/clef-dashboard-v2.png)
+
+## What it does
+
+- Jobs: polls ~2,350 Greenhouse, Lever, Ashby, SmartRecruiters, and Workday boards, plus SimplifyJobs. For each new posting the model decides if it's an internship, the role, the term, whether it's in the US and open to bachelor's students, and how well it fits me (0–4).
+- Two lists. Latest is every match, newest first, so I can apply in the first few minutes. Today's best sorts the day's matches by fit plus a bonus for top companies and YC startups. Checking "applied" removes a job from both lists.
+- Only the best matches buzz my phone, through ntfy, and tapping opens the posting. Everything else is on the dashboard and on a \`/jobs\` page I can open from any device on my tailnet.
+- News: Hacker News, RSS, Google News, and Finnhub. The model picks the topic, how relevant it is, whether it's breaking, and whether it's the same story as an earlier headline.
+- System health: GPU, CPU, RAM, fans, and battery. It only alerts on problems that stick around.
+- The middle of the dashboard is a Three.js scene that shows each decision as it happens.
+
+![Clef core: data streams in from each source and every decision flares in its color](https://raw.githubusercontent.com/NikhileshThiru/clef/main/docs/clef-core-3d-v2.gif#w=420)
+
+## Engineering story
+
+- Clef-flash, ggml-org's open model, doesn't write text. I give it a state and typed questions (choice, score, or yes/no) and it returns structured answers with probabilities in one pass. That's about 320 ms per decision on an RTX 3060 laptop GPU, or 200+ decisions a minute.
+- The 9B model is 6.49 GB at Q4_K_M, too big for 6 GB of VRAM. Clef only reads hidden states, so the 0.78 GB vocabulary head is dead weight on the GPU. Moving it to the CPU got it down to 5.5 GB. My first regex also matched the eight \`attn_output\` tensors and quietly moved them to RAM too. Anchoring it put them back and made it faster.
+- Job boards are polled directly so I see postings fast. The board list is mined daily from SimplifyJobs' 17k listings. Boards with a recent internship get polled every 3 minutes and the rest every 15, and ETags make unchanged boards a free 304.
+- A new posting only alerts if it's new since the last check and fresh by its own timestamp, so the first look at a board never floods my phone.
+- Fuzzy matching catches identical headlines but not the same story told two ways. When a headline loosely matches recent ones, those headlines become options in a \`same_story\` question on the same request.
+- Given raw sensor JSON, the model called a 91 °C GPU and a RAM leak "fine". Given plain-language observations computed in code, it caught all five faults I injected and stayed quiet when things were normal. Alerts still need two bad checks in a row.
+- Things that broke in production: one exception silently killed the decision loop, so now each item is isolated and the process exits so systemd restarts it. On battery the GPU is power-capped and decisions got 25x slower, so timeouts and retry caps matter.
+- Two systemd user services: llama.cpp's \`llama-server\` and \`clefd\` (FastAPI + asyncio) with a priority queue, SQLite, and a WebSocket that streams every decision to the dashboard. It only listens on localhost and Tailscale.
+
+## Stack
+
+Python, FastAPI, asyncio, llama.cpp (CUDA), Clef-flash GGUF, SQLite, WebSockets, vanilla JavaScript, Three.js, ntfy, Tailscale, systemd, Arch Linux (Omarchy).
+
+## Links
+
+- GitHub: https://github.com/NikhileshThiru/clef
 `,
   },
 
@@ -467,6 +514,7 @@ Web Development and Client Solutions Team
 - LLM agent systems: tool-calling loops, structured/guided generation, grounding checks against fetched data
 - Evaluation: forward-tested eval harnesses, Brier score, calibration analysis
 - On-device AI: Apple FoundationModels, SpeechAnalyzer; hosted: OpenAI, Gemini, Grok, Whisper
+- Local inference: llama.cpp with CUDA, quantized GGUF models, tensor offload to fit a 9B model in 6 GB of VRAM
 - Anomaly detection: isolation forests, robust statistics
 
 ## Blockchain
@@ -476,10 +524,10 @@ Web Development and Client Solutions Team
 - React, Next.js, SwiftUI, Vite, Tailwind CSS, shadcn/ui, Three.js, D3.js, deck.gl, MapLibre
 
 ## Backend & Data
-- FastAPI, Flask, Node.js, Fastify, Supabase, PostgreSQL (with row-level security), TimescaleDB, Stripe, WebSockets, SSE, REST APIs, MCP servers
+- FastAPI, asyncio, Flask, Node.js, Fastify, Supabase, PostgreSQL (with row-level security), TimescaleDB, SQLite, Stripe, WebSockets, SSE, REST APIs, MCP servers, ntfy push notifications
 
 ## Infrastructure & Tooling
-- Docker, Git, GitHub Actions CI, Vercel serverless, AWS (EC2), Vultr, Linux (Arch, Hyprland), GNU Stow
+- Docker, Git, GitHub Actions CI, Vercel serverless, AWS (EC2), Vultr, Linux (Arch, Hyprland), GNU Stow, systemd, Tailscale, self-hosted homelab
 - Testing: pytest, Vitest, Playwright, XCTest
 
 ## Certifications
